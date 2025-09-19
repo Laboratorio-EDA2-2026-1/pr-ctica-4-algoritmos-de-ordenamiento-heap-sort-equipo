@@ -37,15 +37,58 @@ int main(void) {
     return 0;
 }
 
+int left(int i){
+    return 2*i+1;
+}
+
+int right(int i){
+    return 2*(i+1);
+}
+
+void Exchange(int *x, int *y){
+    int key = *x;
+    *x = *y;
+    *y = key;
+}
+
 /* IMPLEMENTAR AQUÍ */
 void max_heapify(int a[], int n, int i) {
-    /* TODO */
+    int l = left(i);
+    int r = right(i);
+    int largest;
+    if (l < n && a[l] > a[i])
+        largest = l;
+    else
+        largest = i;
+
+    if (r < n && a[r] > a[largest])
+        largest = r;
+
+    if (largest != i)
+    {
+        Exchange (&a[i], &a[largest]);
+        max_heapify(a, n, l);
+        max_heapify(a, n, r);
+    }
+    
+ 
 }
 
 void build_max_heap(int a[], int n) {
-    /* TODO */
+    
+    for (int i = n/2 - 1; i >=0; i--)
+    {
+        max_heapify(a, n , i);
+    }
+    
 }
 
 void heap_sort(int a[], int n) {
-    /* TODO */
+    build_max_heap(a, n);
+    
+    for (int i =n-1; i >= 1; i--){
+        Exchange(&a[0], &a[i]);
+        n--;
+        max_heapify(a, i, 0);
+    }
 }
